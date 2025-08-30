@@ -9,11 +9,12 @@ const YT_api = import.meta.env.VITE_YOUTUBE_API_KEY;
 const Watch = () => {
   const [channelInfo, setChannelInfo] = useState([]);
   const [messages, setMessages] = useState([
-    {
-      role: "bot",
-      text: "👋 Hey! I’m your study buddy for this video. Ask me questions — I’ll keep answers short unless you want detail.",
-    },
-  ]);
+  {
+    role: "bot",
+    text: "🎬 Watching a video? I’m here as your study buddy! I can summarize, explain, or share related info. Keep it short or ask for details — your call!",
+  },
+]);
+
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const chatEndRef = useRef(null);
@@ -37,7 +38,10 @@ const Watch = () => {
       );
       setChannelInfo(res.data.items || []);
     } catch (error) {
-      console.error("Error fetching video info:", error.response?.data || error.message);
+      console.error(
+        "Error fetching video info:",
+        error.response?.data || error.message
+      );
     }
   };
 
@@ -60,7 +64,7 @@ const Watch = () => {
     setInput("");
     setLoading(true);
 
-    const yt_link = `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoID}&key${YT_api}`
+    const yt_link = `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoID}&key${YT_api}`;
 
     try {
       const res = await fetch(
@@ -74,12 +78,13 @@ const Watch = () => {
                 role: "user",
                 parts: [
                   {
-                    text: `  here is channel info ${channelInfo} analysize this and give me info related to that  you analyzie this and genenrate summery or give me information about it in detail as well ok  You are a friendly study guide helping with YouTube video content.
-- Keep answers short (2–3 lines max) unless user asks for detail.
-- If question starts with "explain", "why", "how", or "in detail", then expand more.
-- Be clear, supportive, and helpful.
-
-User question: ${input}`,
+                    text: `You are a friendly YouTube study buddy chatbot. The user is currently watching a YouTube-style video. 
+- If user asks about the video, give a generic helpful response (summary, possible insights, related knowledge). 
+- If user asks in detail ('explain', 'why', 'how'), give a deeper explanation. 
+- If user asks for tips (like growth, content ideas, trends), give practical YouTube-related suggestions. 
+- Keep answers short (2–3 lines max) unless asked for detail. 
+- Always be supportive, clear, and easy to understand.  
+  user question is :  ${input}`,
                   },
                 ],
               },
@@ -114,7 +119,6 @@ User question: ${input}`,
   };
 
   // console.log("channel info : "+channelInfo);
-  
 
   return (
     <div className="bg-gray-950 text-gray-200 min-h-screen flex flex-col md:flex-row px-4 md:px-8 pt-20 gap-6">
