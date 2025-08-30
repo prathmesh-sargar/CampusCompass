@@ -16,7 +16,7 @@ import CreateRoadmap from "./Routes/roadmapRoute.js"
 import { authenticateToken } from "./Middlewares/Auth.js";
 import { generateAIResponse } from "./Controller/Aiagent.js";
 import { FetchInternships } from "./Controller/InternshipController.js";
-// import { checkAndSendEmails } from "./Controller/Mail.js";
+import { checkAndSendEmails } from "./Controller/Mail.js";
 // dotenv.config();
 
 const PORT = 4000;
