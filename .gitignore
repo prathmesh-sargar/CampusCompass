@@ -1,0 +1,28 @@
+*/node_modules
+*/.env
+
+
+
+# Byte-compiled / optimized files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+.venv/
+flask/venv/
+flask/.venv/
+
+# Flask specific
+instance/
+*.db
+*.sqlite3
+
+# Environment files
+*.env
+
+# Packaging
+build/
+dist/
+*.egg-info/
