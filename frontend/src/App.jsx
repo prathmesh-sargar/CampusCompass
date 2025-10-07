@@ -37,6 +37,7 @@ import HomepageYT from './Components/YTclone/HomepageYT';
 import Addactivities from './Components/community/Addactivities';
 import Details from './Components/community/Details';
 import Cards from './Components/community/Cards';
+import OpenSourceContribute from './Components/Contribute/OpenSourceContribute';
 // import ATSResume from './Components/chat/ATSResume';
 
 
@@ -54,6 +55,7 @@ const router = createBrowserRouter(
             <Route path="AIJobForm" element={<JobForm />} />
             <Route path="community" element={<CommunityChat />} />
             <Route path="resume" element={<ATSResume />} />
+            <Route path="opensource" element={<OpenSourceContribute />} />
             <Route path="AI-Interivew/:interviewId" element={<AiInterview />} />
             <Route path="AI-Interivew/:interviewId/start" element={<AIQuestionsPage />} />
             <Route path="AI-Interivew/:interviewId/score" element={<ScorePage />} />

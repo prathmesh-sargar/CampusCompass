@@ -11,7 +11,8 @@ import ProfileRouter from "./Routes/Profile.js";
 
 import AIInterview from "./Routes/interviewRoutes.js";
 import AnalyzeResume from "./Routes/ResumeAnalyze.js";
-import CreateRoadmap from "./Routes/roadmapRoute.js"
+import CreateRoadmap from "./Routes/roadmapRoute.js";
+import openSourceRoutes from "./Routes/openSourceRoutes.js";
 // import { checkAndSendEmails } from "./Controller/Mail.js";
 import { authenticateToken } from "./Middlewares/Auth.js";
 import { generateAIResponse } from "./Controller/Aiagent.js";
@@ -45,6 +46,7 @@ app.use("/api/aiinterview", AIInterview);
 app.use("/api/resume", AnalyzeResume);
 app.use("/api/create", CreateRoadmap);
 app.get("/api/jobs", FetchInternships);
+app.use("/api/contribute", openSourceRoutes);
 // checkAndSendEmails()
 app.listen(PORT, () => {
   console.log("Server is running on " + PORT);
