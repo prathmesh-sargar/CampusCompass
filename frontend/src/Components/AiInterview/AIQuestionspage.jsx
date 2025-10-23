@@ -230,6 +230,7 @@ const AIInterviewPage = () => {
                     userAnswer,
                 }
             );
+            console.log("ans save res : ",response);
             toast.success(response.data.message || "Answer saved successfully!", {
                 position: "top-right",
                 autoClose: 3000,

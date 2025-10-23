@@ -18,7 +18,7 @@ export const createInterview = async (req, res) => {
     // console.log("questions : ", questions);
 
     // 🔹 Step 2: Format Questions Before Saving
-    const formattedQuestions = questions.map((q) => ({
+    const formattedQuestions = questions?.map((q) => ({
       questionText: q.question,
       aiAnswer: q.answer, // AI-Generated Correct Answer
       userAnswer: null, // No answer yet

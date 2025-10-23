@@ -2,9 +2,8 @@ import { GoogleGenerativeAI } from '@google/generative-ai'
 
 // 🔹 Compare AI Answer & User Answer for Feedback
 export const generateAIAnalysis = async (question, aiAnswer, userAnswer) => {
-
-  const genAI = new GoogleGenerativeAI("AIzaSyCNk3x0DrpgxVkT9YlWjjpRZ20OxQNWzKM");
-  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+  const genAI = new GoogleGenerativeAI("AIzaSyBdvbhcmO8QyE4bC0nySmOOsHcE9M8W3bQ");
+  const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
   const prompt = `Compare the correct answer: "${aiAnswer}" with the user's answer: "${userAnswer}". 
   Provide structured feedback in 2-3 sentences and a score out of 10.
@@ -12,18 +11,31 @@ export const generateAIAnalysis = async (question, aiAnswer, userAnswer) => {
 
   try {
     const result = await model.generateContent(prompt);
-    let responseText = result.response.text().trim(); // Get response text and remove extra spaces
+    let responseText = result.response.text().trim();
 
-    // If response is wrapped in markdown-style triple backticks, clean it
     if (responseText.startsWith("```json")) {
       responseText = responseText.replace(/```json/, "").replace(/```/, "").trim();
     }
-    // console.log(responseText);
-    return JSON.parse(responseText); // Parse JSON and return it
+
+    let parsed = JSON.parse(responseText);
+
+    // ✅ Sanitize score (handle formats like "8/10" or "Score: 7")
+    let score = parsed.score;
+    if (typeof score === "string") {
+      const match = score.match(/\d+(\.\d+)?/); // extract numeric part
+      score = match ? parseFloat(match[0]) : 0;
+    }
+
+    // Clamp between 0–10 for safety
+    if (score > 10) score = 10;
+    if (score < 0) score = 0;
+
+    return { feedback: parsed.feedback, score };
   } catch (error) {
     console.error("Error generating AI feedback:", error);
     return { feedback: "AI feedback failed.", score: 0 };
   }
 };
+
 
 

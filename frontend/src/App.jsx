@@ -47,7 +47,7 @@ const router = createBrowserRouter(
             {/* Main Pages */}
 
             <Route index element={<LandingPage />} />
-            <Route path="event-tracker" element={<EventTracker />} />
+            <Route  path="event-tracker" element={<EventTracker />} />
             <Route path="login" element={<SignIn />} />
             <Route path="signup" element={<SignUp />} />
             <Route path="ainterview" element={<InterviewDashBord />} />

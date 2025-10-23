@@ -38,15 +38,16 @@ const Header = () => {
 
                 {/* Centered Navigation */}
                 <nav className="hidden md:flex items-center justify-center flex-grow gap-1">
-                    {/* <Link className="px-4 py-2 text-sm font-medium hover:bg-gray-100 rounded-lg transition" to="/question-tracker">Questions</Link> */}
+                    <Link className="px-4 py-2 text-sm font-medium hover:bg-gray-100 rounded-lg transition" to="/question-tracker">Q</Link>
+
                     <Link className="px-4 py-2 text-sm font-medium hover:bg-gray-100 rounded-lg transition" to="/opensource">Contribute</Link>
-                    <Link className="px-4 py-2 text-sm font-medium hover:bg-gray-100 rounded-lg transition" to="/event-tracker">Event</Link>
+                    <Link className="px-4 py-2 text-sm font-medium hover:bg-gray-100 rounded-lg transition" to="/event-tracker">Events</Link>
                     <Link className="px-4 py-2 text-sm font-medium hover:bg-gray-100 rounded-lg transition" to="/profile">Profile</Link>
                     <Link className="px-4 py-2 text-sm font-medium hover:bg-gray-100 rounded-lg transition" to="/resume">Resume</Link>
                     <Link className="px-4 py-2 text-sm font-medium hover:bg-gray-100 rounded-lg transition" to="/chat">Guide</Link>
                     <Link className="px-4 py-2 text-sm font-medium hover:bg-gray-100 rounded-lg transition" to="/ainterview">AI Interview</Link>
                     <Link className="px-4 py-2 text-sm font-medium hover:bg-gray-100 rounded-lg transition" to="/community">Community</Link>
-                    <Link className="px-4 py-2 text-sm font-medium hover:bg-gray-100 rounded-lg transition" to="/ytcontent">Personal Search </Link>
+                    <Link className="px-4 py-2 text-sm font-medium hover:bg-gray-100 rounded-lg transition" to="/ytcontent">Learn</Link>
                     <Link className="px-4 py-2 text-sm font-medium hover:bg-gray-100 rounded-lg transition" to="/activities">Explore </Link>
                 </nav>
                 {/* User Section */}

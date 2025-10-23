@@ -52,13 +52,13 @@ function ChatGemini() {
             </svg>
           </motion.div>
           <div>
-            <h1 className="text-xl font-bold text-gray-800">AI Assistant</h1>
-            <p className="text-xs text-gray-500">Always here to help</p>
+            <h1 className="text-xl font-bold text-gray-800"></h1>
+            <p className="text-xs text-gray-500"></p>
           </div>
         </div>
         <div className="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full flex items-center">
           <span className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span>
-          Powered by Gemini
+          
         </div>
       </header>
 
@@ -81,7 +81,7 @@ function ChatGemini() {
             <h2 className="text-2xl font-bold text-gray-700 mb-2">How can I help you today?</h2>
             <p className="max-w-md text-gray-600">Ask me anything about technology, business, or general knowledge.</p>
             <div className="mt-6 grid grid-cols-2 gap-3 w-full max-w-md">
-              {["Suggest a business idea", "Explain AI", "Best marketing strategies", "Tech trends 2024"].map((suggestion) => (
+              {["Suggest a business idea", "Explain AI", "Best marketing strategies", "Tech trends 2025"].map((suggestion) => (
                 <motion.button
                   key={suggestion}
                   whileHover={{ scale: 1.03 }}

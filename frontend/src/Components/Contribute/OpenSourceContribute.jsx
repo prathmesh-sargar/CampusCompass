@@ -8,7 +8,7 @@ import {
   SelectItem,
   SelectValue,
 } from "@/components/ui/select";
-import { Loader2 } from "lucide-react";
+import { Loader2, Github } from "lucide-react";
 import { motion } from "framer-motion";
 
 const languages = [
@@ -38,8 +38,6 @@ const OpenSourceContribute = () => {
       );
       if (!res.ok) throw new Error("Failed to fetch issues");
       const data = await res.json();
-      console.log("fetch data : ", data.items);
-
       setIssues(data?.items || []);
     } catch (err) {
       console.error(err);
@@ -54,21 +52,19 @@ const OpenSourceContribute = () => {
   }, [language]);
 
   return (
-    <div className=" mt-[80px] min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 flex flex-col items-center py-10 px-4">
+    <div className=" text-black mt-[80px] min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 flex flex-col items-center py-10 px-4">
+      {/* Title */}
       <motion.h1
         className="text-3xl font-bold mb-6 text-gray-800 text-center"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
       >
-        🔍 Explore Open Source Issues
+        🧭 Explore Open Source Issues
       </motion.h1>
 
-      {/* Dropdown */}
+      {/* Language Dropdown */}
       <div className="mb-6 w-full max-w-xs">
-        <Select
-          onValueChange={(val) => setLanguage(val)}
-          defaultValue={language}
-        >
+        <Select onValueChange={(val) => setLanguage(val)} defaultValue={language}>
           <SelectTrigger className="w-full">
             <SelectValue placeholder="Select language" />
           </SelectTrigger>
@@ -89,64 +85,109 @@ const OpenSourceContribute = () => {
         </div>
       )}
 
-      {/* Error */}
+      {/* Error Message */}
       {error && <p className="text-red-500 font-medium mt-4">{error}</p>}
 
-      {/* Grid of Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-6xl overflow-y-auto">
+      {/* Issue Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-6xl">
         {!loading &&
-          issues?.map((issue, index) => (
+          issues.map((issue, index) => (
             <motion.div
-              key={index}
+              key={issue.id || index}
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: index * 0.03 }}
             >
-              <Card className="rounded-2xl shadow-md hover:shadow-lg transition bg-white border border-gray-200">
+              <Card className="rounded-2xl shadow-md hover:shadow-xl hover:-translate-y-1 transition bg-white border border-gray-200">
                 <CardHeader>
-                  <CardTitle className="text-lg font-semibold text-gray-800 truncate">
-                    {issue?.title}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-gray-600 mb-2">
-                    Repo:{" "}
+                  <div className="flex justify-between items-start">
                     <a
-                      href={issue?.repoUrl}
+                      href={issue.html_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-blue-600 hover:underline"
                     >
-                      {issue?.repoName}
+                      <CardTitle className="text-lg font-semibold text-gray-800 hover:text-blue-600 transition line-clamp-1">
+                        {issue.title}
+                      </CardTitle>
+                    </a>
+                    <span className="text-xs text-gray-500">
+                      {new Date(issue.created_at).toLocaleDateString()}
+                    </span>
+                  </div>
+                  <p className="text-sm text-gray-600 flex items-center mt-1">
+                    <Github size={20} className="mr-1" />
+                    <a
+                      href={issue.repository_url.replace(
+                        "api.github.com/repos",
+                        "github.com"
+                      )}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline truncate"
+                    >
+                      {issue.repository_url
+                        .split("/")
+                        .slice(-2)
+                        .join("/")}
                     </a>
                   </p>
+                </CardHeader>
+
+                <CardContent>
+                  {/* Description */}
                   <p className="text-sm text-gray-500 mb-3 line-clamp-3">
-                    {issue?.body || "No description available."}
+                    {issue.body || "No description available."}
                   </p>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {issue?.labels?.length > 0 ? (
+
+                  {/* Labels */}
+                  <div className="flex flex-wrap gap-2 mb-3 text-black">
+                    {issue.labels?.length > 0 ? (
                       issue.labels.map((label) => (
                         <span
                           key={label.id}
-                          className="px-2 py-1 text-xs rounded-md"
+                          className="font-semibold text-slate-700 px-2 py-1 text-xs rounded-md"
                           style={{
                             backgroundColor: `#${label.color || "ddd"}`,
-                            color: "#fff",
+                            
                           }}
                         >
                           {label.name}
                         </span>
                       ))
                     ) : (
-                      <span className="text-gray-500 text-xs">No labels</span>
+                      <span className="text-gray-400 text-xs">No labels</span>
                     )}
                   </div>
+
+                  {/* Author */}
+                  <div className="flex items-center gap-2 mb-3">
+                    <img
+                      src={issue.user?.avatar_url}
+                      alt={issue.user?.login}
+                      className="w-8 h-8 rounded-full border"
+                    />
+                    <a
+                      href={issue.user?.html_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm font-medium text-gray-800 hover:text-blue-600"
+                    >
+                      {issue.user?.login}
+                    </a>
+                  </div>
+
+                  {/* Assigned Developers */}
+                  <div className="bg-red-50 text-red-600 text-sm py-1.5 rounded-lg text-center font-medium mb-4">
+                    Assigned Developers: {issue.assignees?.length || 0}
+                  </div>
+
+                  {/* View Button */}
                   <Button
                     asChild
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white transition"
                   >
                     <a
-                      href={issue?.url}
+                      href={issue.html_url}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -159,7 +200,7 @@ const OpenSourceContribute = () => {
           ))}
       </div>
 
-      {/* No Data Message */}
+      {/* No Data */}
       {!loading && issues.length === 0 && (
         <p className="mt-10 text-gray-600 text-center font-medium">
           😕 No issues found for {language.toUpperCase()}.

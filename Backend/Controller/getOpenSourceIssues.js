@@ -7,7 +7,6 @@ export const getOpenSourceIssues = async (req, res) => {
     const response = await axios.get(`https://www.openradar.live/api/github`, {
       params: { tech, status, perPage, page },
     });
-
     // Send the data back to your frontend
     res.status(200).json(response.data);
   } catch (error) {
@@ -15,3 +14,5 @@ export const getOpenSourceIssues = async (req, res) => {
     res.status(500).json({ message: "Failed to fetch issues", error: error.message });
   }
 };
+
+// https://api.github.com/search/issues?q=language:javascript
