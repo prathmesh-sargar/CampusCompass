@@ -11,11 +11,6 @@ function LandingPage() {
             <HeroSection />
             <PrepSimplifier />
             <Footer/>
-        
-            {/* <CodingPlatform />
-            
-            <CodingPortfolio />
-            <FAQ />      */}
         </div>
     )
 }

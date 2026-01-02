@@ -17,6 +17,9 @@ import openSourceRoutes from "./Routes/openSourceRoutes.js";
 import { authenticateToken } from "./Middlewares/Auth.js";
 import { generateAIResponse } from "./Controller/Aiagent.js";
 import { FetchInternships } from "./Controller/InternshipController.js";
+import { getDbStatus } from "./Config/Connection.js";
+
+
 // import { checkAndSendEmails } from "./Controller/Mail.js";
 // dotenv.config();
 const PORT = 4000;
@@ -27,12 +30,40 @@ connectDB(URI);
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-// Check Route
-app.get("/health", (req, res) => {
-  res.send("OK");
-});
-// Routes
 
+/**
+ * Liveness probe
+ * - Checks if server process is running
+ */
+app.get("/health/live", (req, res) => {
+  res.status(200).json({
+    status: "UP",
+    uptime: process.uptime(),
+    timestamp: new Date().toISOString(),
+  });
+});
+
+/**
+ * Readiness probe
+ * - Checks if server is ready to serve traffic
+ */
+app.get("/health/ready", (req, res) => {
+  const dbConnected = getDbStatus();
+
+  if (!dbConnected) {
+    return res.status(503).json({
+      status: "DOWN",
+      database: "DISCONNECTED",
+    });
+  }
+  res.status(200).json({
+    status: "UP",
+    database: "CONNECTED",
+  });
+});
+
+
+// Routes
 app.use("/api/user", UserRouter);
 app.use("/api/sheets", SheetRouter);
 app.use("/api/notes", NoteRouter);

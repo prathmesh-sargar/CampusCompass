@@ -11,7 +11,8 @@ function ChatGemini() {
 
   useEffect(() => {
     if (chatContainerRef.current) {
-      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+      chatContainerRef.current.scrollTop =
+        chatContainerRef.current.scrollHeight;
     }
   }, [messages]);
 
@@ -21,14 +22,17 @@ function ChatGemini() {
     setLoading(true);
     setError("");
 
-    const userMessage = { type: "user", text: question };
-    setMessages((prev) => [...prev, userMessage]);
+    setMessages((prev) => [...prev, { type: "user", text: question }]);
 
     try {
-      const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/aiagent`, { question });
-
-      const aiMessage = { type: "ai", text: res.data.aiResponse };
-      setMessages((prev) => [...prev, aiMessage]);
+      const res = await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/aiagent`,
+        { question }
+      );
+      setMessages((prev) => [
+        ...prev,
+        { type: "ai", text: res.data.aiResponse },
+      ]);
     } catch (err) {
       setError(err.response?.data?.message || "Something went wrong.");
     } finally {
@@ -38,58 +42,56 @@ function ChatGemini() {
   };
 
   return (
-    <div className="h-screen flex flex-col bg-gradient-to-br from-gray-50 to-gray-100">
-      {/* Header */}
-      <header className="bg-white shadow-sm py-4 px-6 flex items-center justify-between sticky top-0 z-10">
-        <div className="flex items-center space-x-3">
-          <motion.div 
-            animate={{ rotate: 360 }}
-            transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-            className="w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center shadow-md"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-            </svg>
-          </motion.div>
-          <div>
-            <h1 className="text-xl font-bold text-gray-800"></h1>
-            <p className="text-xs text-gray-500"></p>
-          </div>
-        </div>
-        <div className="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full flex items-center">
-          <span className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span>
-          
-        </div>
-      </header>
+    <div className="py-10 h-screen flex flex-col bg-gradient-to-b from-[#0a0a1a] via-[#0d1025] to-[#0a0a1a]">
 
-      {/* Chat Container */}
+      {/* Chat Area */}
       <div
         ref={chatContainerRef}
-        className="flex-1 overflow-y-auto p-6 space-y-4 bg-gradient-to-b from-white/50 to-transparent"
+        className="flex-1 overflow-y-auto px-6 py-8 space-y-4"
       >
         {messages.length === 0 && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="flex flex-col items-center justify-center h-full text-center text-gray-500"
+            className="h-full flex flex-col items-center justify-center text-center text-gray-400"
           >
-            <div className="w-32 h-32 mb-6 opacity-20">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+            <div className="w-28 h-28 mb-6 opacity-20">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1.5}
+                  d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
+                />
               </svg>
             </div>
-            <h2 className="text-2xl font-bold text-gray-700 mb-2">How can I help you today?</h2>
-            <p className="max-w-md text-gray-600">Ask me anything about technology, business, or general knowledge.</p>
-            <div className="mt-6 grid grid-cols-2 gap-3 w-full max-w-md">
-              {["Suggest a business idea", "Explain AI", "Best marketing strategies", "Tech trends 2025"].map((suggestion) => (
+            <h2 className="text-2xl font-bold text-gray-200 mb-2">
+              Ask CampusCompass AI
+            </h2>
+            <p className="max-w-md text-gray-400 mb-6">
+              Get instant help with tech, careers, interviews, and learning.
+            </p>
+
+            <div className="grid grid-cols-2 gap-3 w-full max-w-md">
+              {[
+                "Explain React hooks",
+                "Resume improvement tips",
+                "DSA roadmap",
+                "System design basics",
+              ].map((s) => (
                 <motion.button
-                  key={suggestion}
+                  key={s}
                   whileHover={{ scale: 1.03 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="bg-white border border-gray-200 rounded-lg px-4 py-2 text-sm text-gray-700 shadow-sm hover:bg-gray-50 transition-all"
-                  onClick={() => setQuestion(suggestion)}
+                  whileTap={{ scale: 0.97 }}
+                  className="bg-gray-900/60 border border-gray-700 rounded-lg px-4 py-2 text-sm text-gray-300 hover:bg-gray-800 transition"
+                  onClick={() => setQuestion(s)}
                 >
-                  {suggestion}
+                  {s}
                 </motion.button>
               ))}
             </div>
@@ -97,42 +99,39 @@ function ChatGemini() {
         )}
 
         <AnimatePresence>
-          {messages.map((msg, index) => (
+          {messages.map((msg, i) => (
             <motion.div
-              key={index}
+              key={i}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.3 }}
-              className={`flex ${msg.type === "user" ? "justify-end" : "justify-start"}`}
+              exit={{ opacity: 0 }}
+              className={`flex ${
+                msg.type === "user" ? "justify-end" : "justify-start"
+              }`}
             >
               <div
-                className={`p-4 rounded-2xl max-w-3xl relative ${
+                className={`relative max-w-3xl p-4 rounded-2xl ${
                   msg.type === "user"
-                    ? "bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-br-none shadow-md"
-                    : "bg-white text-gray-800 rounded-bl-none border border-gray-100 shadow-sm"
+                    ? "bg-blue-600 text-white rounded-br-none"
+                    : "bg-gray-900/70 text-gray-200 border border-gray-700 rounded-bl-none"
                 }`}
               >
                 {msg.type === "ai" && (
-                  <div className="absolute -left-2 top-0 w-4 h-4 bg-white transform rotate-45 border-l border-t border-gray-200"></div>
+                  <div className="absolute -left-2 top-0 w-4 h-4 bg-gray-900 rotate-45 border-l border-t border-gray-700" />
                 )}
                 {msg.type === "user" && (
-                  <div className="absolute -right-2 top-0 w-4 h-4 bg-blue-500 transform rotate-45"></div>
+                  <div className="absolute -right-2 top-0 w-4 h-4 bg-blue-600 rotate-45" />
                 )}
-                <div className="flex items-start space-x-3">
+
+                <div className="flex items-start gap-3">
                   {msg.type === "ai" && (
-                    <div className="flex-shrink-0 w-7 h-7 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center text-white text-xs font-bold shadow-sm">
+                    <div className="w-7 h-7 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center text-xs font-bold text-white">
                       AI
                     </div>
                   )}
-                  <p className="whitespace-pre-wrap leading-relaxed">{msg.text}</p>
-                  {msg.type === "user" && (
-                    <div className="flex-shrink-0 w-7 h-7 rounded-full bg-blue-700 flex items-center justify-center text-white text-xs shadow-sm">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                        <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
-                      </svg>
-                    </div>
-                  )}
+                  <p className="whitespace-pre-wrap leading-relaxed text-sm">
+                    {msg.text}
+                  </p>
                 </div>
               </div>
             </motion.div>
@@ -140,96 +139,81 @@ function ChatGemini() {
         </AnimatePresence>
 
         {loading && (
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="flex justify-start"
-          >
-            <div className="bg-white p-4 rounded-2xl rounded-bl-none border border-gray-200 max-w-xs shadow-sm relative">
-              <div className="absolute -left-2 top-0 w-4 h-4 bg-white transform rotate-45 border-l border-t border-gray-200"></div>
-              <div className="flex space-x-3">
-                <div className="flex-shrink-0 w-7 h-7 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center text-white text-xs font-bold shadow-sm">
-                  AI
-                </div>
-                <div className="flex space-x-2 items-center">
-                  <div className="w-2.5 h-2.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-                  <div className="w-2.5 h-2.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-                  <div className="w-2.5 h-2.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
-                </div>
+          <div className="flex justify-start">
+            <div className="bg-gray-900/70 border border-gray-700 rounded-2xl rounded-bl-none p-4 flex gap-3">
+              <div className="w-7 h-7 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center text-xs font-bold text-white">
+                AI
+              </div>
+              <div className="flex gap-2 items-center">
+                <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" />
+                <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce delay-150" />
+                <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce delay-300" />
               </div>
             </div>
-          </motion.div>
+          </div>
         )}
+
         {error && (
-          <motion.div 
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="flex justify-center"
-          >
-            <div className="bg-red-50 border border-red-100 text-red-600 px-4 py-3 rounded-lg shadow-sm flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
-              </svg>
+          <div className="flex justify-center">
+            <div className="bg-red-900/30 border border-red-800 text-red-300 px-4 py-3 rounded-lg">
               {error}
             </div>
-          </motion.div>
+          </div>
         )}
       </div>
 
-      {/* Input Box */}
-      <div className="p-4 bg-white border-t border-gray-200 sticky bottom-0">
-        <div className="max-w-4xl mx-auto">
-          <div className="relative">
-            <input
-              type="text"
-              className="w-full p-4 pr-16 rounded-xl bg-gray-100 text-gray-900 outline-none focus:ring-2 focus:ring-blue-400 focus:bg-white transition-all duration-200 shadow-sm hover:shadow-md"
-              placeholder="Type your message here..."
-              value={question}
-              onChange={(e) => setQuestion(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" && !e.shiftKey) {
-                  e.preventDefault();
-                  handleAskQuestion();
-                }
-              }}
-            />
-            {question && (
-              <button 
-                onClick={() => setQuestion("")}
-                className="absolute right-14 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 transition-colors"
+      {/* Input */}
+      <div className="border-t border-gray-800 bg-gray-900/80 backdrop-blur px-4 py-4">
+        <div className="max-w-4xl mx-auto relative">
+          <input
+            value={question}
+            onChange={(e) => setQuestion(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && !e.shiftKey) {
+                e.preventDefault();
+                handleAskQuestion();
+              }
+            }}
+            placeholder="Ask something..."
+            className="w-full bg-gray-800 text-gray-200 rounded-xl py-4 pl-4 pr-16 outline-none focus:ring-2 focus:ring-blue-500"
+          />
+
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={handleAskQuestion}
+            disabled={loading || !question.trim()}
+            className="absolute right-2 top-1/2 -translate-y-1/2 bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-xl disabled:opacity-60"
+          >
+            {loading ? (
+              <svg
+                className="animate-spin h-5 w-5"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
-                </svg>
-              </button>
-            )}
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="absolute right-2 top-1/2 transform -translate-y-1/2 p-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-md flex items-center justify-center disabled:opacity-70 disabled:cursor-not-allowed"
-              onClick={handleAskQuestion}
-              disabled={loading || !question.trim()}
-            >
-              {loading ? (
-                <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-              ) : (
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                  <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
-                </svg>
-              )}
-            </motion.button>
-          </div>
-          <div className="text-center text-xs text-gray-500 mt-2 flex items-center justify-center">
-            <span className="inline-flex items-center px-2 py-0.5 rounded bg-gray-100 text-gray-600">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                />
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                />
               </svg>
-              Press Enter to send
-            </span>
-          </div>
+            ) : (
+              "➤"
+            )}
+          </motion.button>
+
+          <p className="text-center text-xs text-gray-500 mt-2">
+            Press <span className="text-gray-300">Enter</span> to send
+          </p>
         </div>
       </div>
     </div>

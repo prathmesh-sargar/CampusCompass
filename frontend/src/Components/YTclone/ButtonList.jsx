@@ -1,21 +1,10 @@
-import  { useState } from "react";
+import { useState } from "react";
 import { setcategory } from "../../Features/Auth/storeSlices";
 import { useDispatch } from "react-redux";
 
 const ButtonList = () => {
-  const [active, setactive] = useState("All");
-
-  const dispatch = useDispatch()
-
-  const videoByTag = (tag) => {
-    // alert(tag)
-    if (active !== tag) {
-      setactive(tag);
-      dispatch(setcategory(tag))
-    }
-  };
-  
-  console.log(active);
+  const [active, setActive] = useState("All");
+  const dispatch = useDispatch();
 
   const buttonlist = [
     "All",
@@ -29,29 +18,32 @@ const ButtonList = () => {
     "Internship",
   ];
 
+  const videoByTag = (tag) => {
+    if (active !== tag) {
+      setActive(tag);
+      dispatch(setcategory(tag));
+    }
+  };
+
   return (
-    <>
-      <div className=" flex justify-center gap-2">
-        {buttonlist.map((buttonName, index) => {
-          return (
-            <div key={index}>
-              <button
-                onClick={() => {
-                  videoByTag(buttonName);
-                }}
-                className={`${
-                  active === buttonName
-                    ? "bg-black text-white"
-                    : "bg-slate-200 text-black"
-                }  px-3 py-1 mt-4 m-2 rounded-lg `}
-              >
-                {buttonName}
-              </button>
-            </div>
-          );
-        })}
-      </div>
-    </>
+    <div className="flex gap-2 overflow-x-auto py-3 px-1 scrollbar-hide">
+      {buttonlist.map((name) => (
+        <button
+          key={name}
+          onClick={() => videoByTag(name)}
+          className={`
+            whitespace-nowrap px-4 py-1.5 rounded-full text-sm font-medium transition
+            ${
+              active === name
+                ? "bg-blue-600 text-white shadow"
+                : "bg-gray-800 text-gray-300 hover:bg-gray-700"
+            }
+          `}
+        >
+          {name}
+        </button>
+      ))}
+    </div>
   );
 };
 

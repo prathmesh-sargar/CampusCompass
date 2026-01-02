@@ -5,7 +5,6 @@ import { store } from './App/Store';
 import "react-toastify/dist/ReactToastify.css";
 
 import LandingPage from './Pages/LandingPage';
-import QuestionTracker from './Pages/QuestionTracker';
 import EventTracker from './Pages/EventTracker';
 import SignIn from './Pages/SignIn';
 import ProfileTracker from './Pages/ProfileTracker';
@@ -13,16 +12,11 @@ import SignUp from './Pages/SignUp';
 import Layout from './Pages/Layout';
 import ProfileEdit from './Pages/ProfileEdit';
 
-import MySheets from './Components/QuestionTracker/MySheets';
-import Notes from './Components/QuestionTracker/Notes';
-import Analysis from './Components/QuestionTracker/Analysis';
-import SheetDetails from './Components/QuestionTracker/SheetDetails';
+
 import { ToastContainer } from 'react-toastify';
 import CodeforcesProfile from './Components/ProfileTracker/CodeforcesProfile';
 import DevStats from './Components/ProfileTracker/DevStats';
 import LeetCodeStats from './Components/ProfileTracker/LeetCodeStats';
-import Explore from './Components/QuestionTracker/Explore';
-import Workspace from './Components/QuestionTracker/Workspace';
 import InterviewDashBord from './Components/AiInterview/InterviewDashBord';
 import JobForm from './Components/AiInterview/JobForm';
 import AiInterview from './Components/AiInterview/AiInterview';
@@ -31,7 +25,6 @@ import CommunityChat from './Components/chat/ChatCommunity';
 import ScorePage from './Components/AiInterview/ScorePage';
 import ATSResume from './Components/chat/ATSResume';
 import ChatGemini from './Components/Chatwithgemini/ChatGemini';
-import Roadmap from './Components/Roadmap/Roadmap';
 import Watch from './Components/YTclone/Watch';
 import HomepageYT from './Components/YTclone/HomepageYT';
 import Addactivities from './Components/community/Addactivities';
@@ -51,7 +44,6 @@ const router = createBrowserRouter(
             <Route path="login" element={<SignIn />} />
             <Route path="signup" element={<SignUp />} />
             <Route path="ainterview" element={<InterviewDashBord />} />
-            <Route path='roadmap' element={<Roadmap/>} />
             <Route path="AIJobForm" element={<JobForm />} />
             <Route path="community" element={<CommunityChat />} />
             <Route path="resume" element={<ATSResume />} />
@@ -75,8 +67,10 @@ const router = createBrowserRouter(
             {/* <Route path="profile" element={<Resume />} /> */}
 
             {/* Nested Routes for Question Tracker */}
-            <Route path="question-tracker" element={<QuestionTracker />}>
-                <Route index element={<Workspace />} /> {/* Default Page */}
+
+            {/* <Route path="question-tracker" element={<QuestionTracker />}>
+
+                <Route index element={<Workspace />} />
                 <Route path="workspace" element={<Workspace />} />
                 <Route path="explore" element={<Explore />} />
                 <Route path="mySheets" element={<MySheets />} />
@@ -84,7 +78,7 @@ const router = createBrowserRouter(
                 <Route path="analysis" element={<Analysis />} />
                 
                 <Route path="explore/sheet/:id" element={<SheetDetails />} />
-            </Route>
+            </Route> */}
 
             {/* Profile Edit Nested Routes */}
             <Route path="profile/edit" element={<ProfileEdit />} />

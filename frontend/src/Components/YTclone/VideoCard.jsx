@@ -1,72 +1,72 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react'
-// import { API_KEY } from './contstant/YouTube';
+import axios from "axios";
+import { useEffect, useState } from "react";
 
-const VideoCard = ({item}) => {
+const VideoCard = ({ item }) => {
+  const [ytIcon, setYtIcon] = useState("");
+  const [channelTitle, setChannelTitle] = useState("");
 
-  
-
-  const [ytIcon , setytIcon] = useState("");
-  const [title,settitle] = useState("");
-
-  const getchanneldeatail = async()=>{
-
+  const getChannelDetail = async () => {
     try {
-      
-            const res = await axios.get(`https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=${item.snippet.channelId}&key=AIzaSyDsKiEvrwMmwWVv6eTfzktIvfX6d8OYZ90`)
-            console.log(" channel ID ", res);
-            console.log(res.data.items[0].snippet.title);
-            settitle(res.data.items[0].snippet.title)
-            
-          const image = res.data.items[0].snippet.thumbnails.high.url
-          setytIcon(image)
-      
+      if (!item?.snippet?.channelId) return;
 
+      const res = await axios.get(
+        "https://youtube.googleapis.com/youtube/v3/channels",
+        {
+          params: {
+            part: "snippet",
+            id: item.snippet.channelId,
+            key: import.meta.env.VITE_YOUTUBE_API_KEY, // ✅ moved to env
+          },
+          headers: { Authorization: null },
+        }
+      );
+
+      const channel = res?.data?.items?.[0];
+      if (!channel) return;
+
+      setChannelTitle(channel.snippet.title);
+      setYtIcon(channel.snippet.thumbnails.high.url);
     } catch (error) {
-      console.log(error);
-      
+      console.error("Channel fetch error:", error);
     }
-  }
+  };
 
-  useEffect(()=>{
-    getchanneldeatail();
-  },[item.snippet.channelId])
-
+  useEffect(() => {
+    getChannelDetail();
+  }, [item?.snippet?.channelId]);
 
   return (
-    <>
-   
-  <div className="w-[300px] rounded-md ">
-   
+    <div className="w-full bg-gray-900/70 backdrop-blur border border-gray-800 rounded-xl overflow-hidden transition hover:border-gray-600">
+      
+      {/* Thumbnail */}
       <img
         src={item.snippet.thumbnails.medium.url}
-        alt="img"
-        className="h-[200px] w-full rounded-t-md object-cover"
+        alt={item.snippet.title}
+        className="w-full aspect-video object-cover"
       />
-      <div className="p-4">
-        <div className=''>
-          <div className='flex gap-2'>
-            <img src={ytIcon}  alt="img" className='rounded-full h-[30px] w-[30px] cover  '
-             
-            />
-            <p>{title}</p>
-          </div>
 
-        <h3 className="inline-flex items-center text-start  ml-2">
-        {item.snippet.title}
-        </h3>
+      {/* Content */}
+      <div className="p-3 space-y-3">
+        
+        {/* Channel */}
+        <div className="flex items-center gap-3">
+          <img
+            src={ytIcon}
+            alt={channelTitle}
+            className="h-8 w-8 rounded-full object-cover border border-gray-700"
+          />
+          <p className="text-sm text-gray-300 line-clamp-1">
+            {channelTitle}
+          </p>
         </div>
-       
-        {/* <p className='text-semibold text-blue-500'>{item.snippet.channelTitle}</p> */}
-        {/* <p>{item.statistics?.viewCount} <span className='text-bold'>views</span>  </p> */}
-        <p className="mt-3 text-sm text-gray-600">
-        </p>
-     
-      
+
+        {/* Title */}
+        <h3 className="text-sm font-semibold text-gray-100 leading-snug line-clamp-2">
+          {item.snippet.title}
+        </h3>
       </div>
     </div>
-    </>
-  )
-}
+  );
+};
 
-export default VideoCard
+export default VideoCard;

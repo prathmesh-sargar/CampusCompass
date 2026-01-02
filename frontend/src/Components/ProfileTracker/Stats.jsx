@@ -16,15 +16,15 @@ export default function Stats({ data }) {
     .map((entry) => ({
       name: entry.difficulty,
       value: entry.count,
-      color: COLORS[entry.difficulty] || "#ccc", // Default color if difficulty is unknown
+      color: COLORS[entry.difficulty] || "#b9b0b0ff", // Default color if difficulty is unknown
     }));
 
   const totalSolved = filteredData.reduce((acc, curr) => acc + curr.value, 0);
 
   return (
-    <Card className="w-full max-w-md p-6 shadow-md border rounded-lg bg-white">
+    <Card className="w-full max-w-md p-6 shadow-md border rounded-lg bg-slate-800 ">
       <CardContent className="flex flex-col items-center">
-        <h3 className="text-lg font-semibold text-gray-600">DSA Problems Solved</h3>
+        <h3 className="text-lg font-semibold text-white">DSA Problems Solved</h3>
         
         {/* Pie Chart Section */}
         <div className="relative flex items-center justify-center my-4">
@@ -43,7 +43,7 @@ export default function Stats({ data }) {
               ))}
             </Pie>
           </PieChart>
-          <span className="absolute text-2xl font-bold text-black">{totalSolved}</span>
+          <span className="absolute text-2xl font-bold text-white">{totalSolved}</span>
         </div>
 
         {/* Stats List */}

@@ -2,7 +2,7 @@ import { GoogleGenerativeAI } from '@google/generative-ai'
 
 // 🔹 Compare AI Answer & User Answer for Feedback
 export const generateAIAnalysis = async (question, aiAnswer, userAnswer) => {
-  const genAI = new GoogleGenerativeAI("AIzaSyBdvbhcmO8QyE4bC0nySmOOsHcE9M8W3bQ");
+  const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY1);
   const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
   const prompt = `Compare the correct answer: "${aiAnswer}" with the user's answer: "${userAnswer}". 

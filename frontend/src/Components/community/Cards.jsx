@@ -5,49 +5,49 @@ import { getDocs } from "firebase/firestore";
 import { moviesRef } from "../../firebase/firebase";
 import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
+
 const Cards = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [input, setinput] = useState("");
+
   useEffect(() => {
     async function getData() {
       setLoading(true);
-      const _data = await getDocs(moviesRef);
-      console.log(_data);
 
-      // Convert _data to an array
+      const _data = await getDocs(moviesRef);
       const dataArray = _data.docs.map((doc) => ({
         ...doc.data(),
         id: doc.id,
       }));
 
-      // Filter data based on category
       const filteredData = input
         ? dataArray.filter((item) => item.category === input)
         : dataArray;
+
       setData(filteredData);
       setLoading(false);
     }
     getData();
   }, [input]);
+
   return (
-    <>
-      <div className="w-full mt-[100px]">
-       <div className="flex justify-end p-1">
-         <Link to={"/addactivities"}>
-          <h1 className="text-lg cursor-pointer flex items-center">
-            <Button>
-              + <span className="text-white">Add New</span>
-            </Button>
-          </h1>
+    <div className="min-h-screen py-[80px] px-4 bg-gradient-to-b from-[#0a0a1a] via-[#0d1025] to-[#0a0a1a] text-gray-200">
+      
+      {/* Top Actions */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+        <Link to="/addactivities">
+          <Button className="bg-blue-600 hover:bg-blue-700 text-white rounded-lg">
+            + Add New
+          </Button>
         </Link>
-       </div>
+
         <select
-          className="w-1/3 md:w-[300px]  bg- px-5 rounded-lg py-1 bg-slate-200 text-black"
-          value={input.category}
+          className="w-full sm:w-[300px] bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          value={input}
           onChange={(e) => setinput(e.target.value)}
         >
-          <option value="">Select Category</option>
+          <option value="">All Categories</option>
           <option value="Academics & Research">Academics & Research</option>
           <option value="Projects & Hackathons">Projects & Hackathons</option>
           <option value="Events & Fests">Events & Fests</option>
@@ -62,46 +62,69 @@ const Cards = () => {
           <option value="Others">Others</option>
         </select>
       </div>
-      <div className="grid grid-cols-2 md:grid-cols-4 px-3 mt-2">
-        {loading ? (
-          <div className="ml-[80px] md:ml-[450px] w-full flex justify-center items-center h-96">
-            <ThreeDots height={40} color="white" />
-          </div>
-        ) : (
-          data.map((e) => {
-            return (
-              <Link to={`/detail/${e.id}`} key={Math.random()}>
-                <div
-                  key={Math.random()}
-                  className="card font-medium shadow-lg p-2 hover:-translate-y-3 cursor-pointer mt-6 transition-all duration-500 flex first-letter:"
-                >
-                  <div>
-                    <img
-                      className="w-[144px] h-60 md:h-72 md:w-[260px] rounded-lg"
-                      src={e.image}
-                      alt="img"
+
+      {/* Loader */}
+      {loading ? (
+        <div className="flex justify-center items-center h-[60vh]">
+          <ThreeDots height={40} color="#60a5fa" />
+        </div>
+      ) : (
+        <div className="
+          grid gap-6
+          grid-cols-2
+          sm:grid-cols-3
+          md:grid-cols-4
+          lg:grid-cols-5
+          xl:grid-cols-6
+        ">
+          {data.map((e) => (
+            <Link to={`/detail/${e.id}`} key={e.id}>
+              <div className="
+                bg-gray-900/70 backdrop-blur
+                border border-gray-700
+                rounded-xl
+                overflow-hidden
+                hover:-translate-y-2
+                hover:border-gray-500
+                transition-all
+                duration-300
+                shadow-lg
+              ">
+                {/* Image */}
+                <img
+                  src={e.image}
+                  alt={e.title}
+                  className="w-full h-40 sm:h-48 md:h-56 object-cover"
+                />
+
+                {/* Content */}
+                <div className="p-3 space-y-2">
+                  <h2 className="text-sm font-semibold text-gray-100 line-clamp-1">
+                    {e.title}
+                  </h2>
+
+                  <div className="flex items-center gap-2 text-xs">
+                    <span className="text-gray-400">Rating</span>
+                    <ReactStars
+                      size={16}
+                      half
+                      value={e.rating / e.rated}
+                      edit={false}
                     />
-                    <h1>{e.title}</h1>
-                    <h1 className="flex items-center">
-                      <span className="text-gray-300 mr-1">Rating:</span>
-                      <ReactStars
-                        size={20}
-                        half={true}
-                        value={e.rating / e.rated}
-                        edit={false}
-                      />
-                    </h1>
-                    <h1>
-                      <span className="text-gray-300">Author:</span> {e.Author}
-                    </h1>
                   </div>
+
+                  <p className="text-xs text-gray-400 line-clamp-1">
+                    <span className="text-gray-500">Author:</span>{" "}
+                    {e.Author}
+                  </p>
                 </div>
-              </Link>
-            );
-          })
-        )}
-      </div>
-    </>
+              </div>
+            </Link>
+          ))}
+        </div>
+      )}
+    </div>
   );
 };
+
 export default Cards;
