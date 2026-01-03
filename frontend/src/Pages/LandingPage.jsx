@@ -1,7 +1,7 @@
 
-import HeroSection from '../Components/Home/HeroSection'
-import PrepSimplifier from '../Components/Home/PrepSimplifier'
-import Footer from '../Components/Home/Footer'
+import HeroSection from '../components/Home/HeroSection'
+import PrepSimplifier from '../components/Home/PrepSimplifier'
+import Footer from '../components/Home/Footer'
 
 
 

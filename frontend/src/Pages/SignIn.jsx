@@ -3,10 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../Features/Auth/AuthSlice";
-import { Input } from "../Components/ui/input";
-import { Button } from "../Components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "../Components/ui/card";
-import { Label } from "../Components/ui/label";
+import { Input } from "../components/ui/input";
+import { Button } from "../components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card";
+import { Label } from "../components/ui/label";
 
 const SignIn = () => {
     const dispatch = useDispatch();

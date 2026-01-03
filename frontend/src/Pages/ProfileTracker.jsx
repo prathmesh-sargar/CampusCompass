@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate, Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { Button } from "../Components/ui/button";
-import { Card } from "../Components/ui/card";
+import { Button } from "../components/ui/button";
+import { Card } from "../components/ui/card";
 import { FaChevronUp, FaExternalLinkAlt } from "react-icons/fa";
 import {
   SiLeetcode,

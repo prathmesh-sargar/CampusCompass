@@ -1,6 +1,6 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import Sidebar from "../Components/QuestionTracker/Sidebar";
+import Sidebar from "../components/QuestionTracker/Sidebar";
 
 
 function QuestionTracker() {

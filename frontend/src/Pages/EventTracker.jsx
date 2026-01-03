@@ -1,4 +1,4 @@
-import Calendar from '../Components/QuestionTracker/Calendar'
+import Calendar from '../components/QuestionTracker/Calendar'
 import React from 'react'
 
 function EventTracker() {

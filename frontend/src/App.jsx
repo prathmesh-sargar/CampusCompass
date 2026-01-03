@@ -14,23 +14,23 @@ import ProfileEdit from './Pages/ProfileEdit';
 
 
 import { ToastContainer } from 'react-toastify';
-import CodeforcesProfile from './Components/ProfileTracker/CodeforcesProfile';
-import DevStats from './Components/ProfileTracker/DevStats';
-import LeetCodeStats from './Components/ProfileTracker/LeetCodeStats';
-import InterviewDashBord from './Components/AiInterview/InterviewDashBord';
-import JobForm from './Components/AiInterview/JobForm';
-import AiInterview from './Components/AiInterview/AiInterview';
-import AIQuestionsPage from './Components/AiInterview/AIQuestionspage';
-import CommunityChat from './Components/chat/ChatCommunity';
-import ScorePage from './Components/AiInterview/ScorePage';
-import ATSResume from './Components/chat/ATSResume';
-import ChatGemini from './Components/Chatwithgemini/ChatGemini';
-import Watch from './Components/YTclone/Watch';
-import HomepageYT from './Components/YTclone/HomepageYT';
-import Addactivities from './Components/community/Addactivities';
-import Details from './Components/community/Details';
-import Cards from './Components/community/Cards';
-import OpenSourceContribute from './Components/Contribute/OpenSourceContribute.jsx';
+import CodeforcesProfile from './components/ProfileTracker/CodeforcesProfile';
+import DevStats from './components/ProfileTracker/DevStats';
+import LeetCodeStats from './components/ProfileTracker/LeetCodeStats';
+import InterviewDashBord from './components/AiInterview/InterviewDashBord';
+import JobForm from './components/AiInterview/JobForm';
+import AiInterview from './components/AiInterview/AiInterview';
+import AIQuestionsPage from './components/AiInterview/AIQuestionspage';
+import CommunityChat from './components/chat/ChatCommunity';
+import ScorePage from './components/AiInterview/ScorePage';
+import ATSResume from './components/chat/ATSResume';
+import ChatGemini from './components/Chatwithgemini/ChatGemini';
+import Watch from './components/YTclone/Watch';
+import HomepageYT from './components/YTclone/HomepageYT';
+import Addactivities from './components/community/Addactivities';
+import Details from './components/community/Details';
+import Cards from './components/community/Cards';
+import OpenSourceContribute from './components/Contribute/OpenSourceContribute.jsx';
 // import ATSResume from './Components/chat/ATSResume';
 
 
