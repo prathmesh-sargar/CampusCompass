@@ -30,7 +30,7 @@ import HomepageYT from './Components/YTclone/HomepageYT';
 import Addactivities from './Components/community/Addactivities';
 import Details from './Components/community/Details';
 import Cards from './Components/community/Cards';
-import OpenSourceContribute from './Components/Contribute/OpenSourceContribute';
+import OpenSourceContribute from './Components/Contribute/OpenSourceContribute.jsx';
 // import ATSResume from './Components/chat/ATSResume';
 
 
