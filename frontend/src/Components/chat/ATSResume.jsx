@@ -9,6 +9,8 @@ import {
 } from "react-icons/fa";
 import { FiUpload, FiAlertCircle } from "react-icons/fi";
 
+
+
 function ATSResume() {
   const [file, setFile] = useState(null);
   const [fileName, setFileName] = useState("");
