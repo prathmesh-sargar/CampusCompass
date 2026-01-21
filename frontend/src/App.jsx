@@ -31,6 +31,7 @@ import Addactivities from './components/community/Addactivities';
 import Details from './components/community/Details';
 import Cards from './components/community/Cards';
 import OpenSourceContribute from './components/Contribute/OpenSourceContribute.jsx';
+import Leaderboard from './Pages/Leaderboard';
 // import ATSResume from './Components/chat/ATSResume';
 
 
@@ -63,6 +64,7 @@ const router = createBrowserRouter(
 
              <Route path="watch" element={<Watch/>} />   
             <Route path="ytcontent" element={<HomepageYT/>} />  
+            <Route path='leaderboard' element={<Leaderboard/>}/>
             
             {/* <Route path="profile" element={<Resume />} /> */}
 

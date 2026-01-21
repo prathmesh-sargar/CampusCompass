@@ -17,6 +17,7 @@ import openSourceRoutes from "./Routes/openSourceRoutes.js";
 import { authenticateToken } from "./Middlewares/Auth.js";
 import { generateAIResponse } from "./Controller/Aiagent.js";
 import { FetchInternships } from "./Controller/InternshipController.js";
+import leaderboardRoutes from "./Routes/leaderboardRoutes.js";
 import { getDbStatus } from "./Config/Connection.js";
 
 
@@ -74,6 +75,7 @@ app.use("/api/resume", AnalyzeResume);
 app.use("/api/create", CreateRoadmap);
 app.get("/api/jobs", FetchInternships);
 app.use("/api/contribute", openSourceRoutes);
+app.use("/api/leaderboard", leaderboardRoutes);
 
 // checkAndSendEmails()
 app.listen(PORT, () => {

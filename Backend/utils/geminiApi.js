@@ -8,7 +8,7 @@ dotenv.config();
 // 🔹 Generate AI Interview Questions
 export const generateQuestions = async (jobRole, jobDescription, experienceLevel) => {
 
-  const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY1);
+  const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY4);
   const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
   // const prompt = `Generate a JSON response with multiple question-answer pairs related to the topic: "JobRole : " "${JobRole}".  "Jo Description : "${JobDescript}  and experience level : "${exp} Each question should be relevant to the topic, and the answers should be concise, explaining in one line only. Format the output strictly as a JSON object with a "questions" key containing an array of objects, where each object has a "question" and "answer" field. Do not include any markdown formatting or additional text.`;

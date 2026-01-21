@@ -293,7 +293,7 @@ const AIInterviewPage = () => {
 
     // Setup socket connection and auto-start monitoring
     useEffect(() => {
-        const socket = io("https://flask-socket-mediapipe.onrender.com", {
+        const socket = io("http://localhost:5000/", {
             transports: ["websocket"],
             reconnectionAttempts: 5,
             reconnectionDelay: 1000
@@ -330,7 +330,7 @@ if (faces.length > 1) {
     ...prev,
     "Multiple people detected. Only one person is allowed."
   ]);
-  setWarningCount(prev => prev + 2); // heavier penalty
+  setWarningCount(prev => prev + 1); // heavier penalty
 }
 
             // Calculate metrics
@@ -415,7 +415,6 @@ if (faces.length > 1) {
         <div className="bg-gray-900 border border-red-700 rounded-xl p-6 max-w-md w-full">
           <h2 className="text-xl font-bold text-red-500 mb-3">⚠️ Warning</h2>
           <p className="text-gray-300 mb-4">
-            You have switched tabs multiple times during the interview.
             Continued violations may terminate your session.
           </p>
           <div className="flex justify-end">

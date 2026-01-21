@@ -65,6 +65,7 @@ const Header = () => {
             ["Community", "/community"],
             ["Learn", "/ytcontent"],
             ["Explore", "/activities"],
+            ["Leaderboard", "/leaderboard"],
           ].map(([label, path]) => (
             <Link
               key={path}

@@ -35,7 +35,7 @@ function CommunityChat() {
         {/* Sidebar */}
         <Sidebar setActiveGroup={setActiveGroup} />
          {/* 🚧 Development Notice */}
-      <div className="w-[700px] flex justify-center items-center rounded-lg border border-yellow-500/30 bg-yellow-500/10 px-4 py-3 text-yellow-300 flex  gap-3">
+      {/* <div className="w-[700px] flex justify-center items-center rounded-lg border border-yellow-500/30 bg-yellow-500/10 px-4 py-3 text-yellow-300 flex  gap-3">
         <span className="text-lg">🚧</span>
         <div className="text-lg">
           <p className="font-semibold text-yellow-400 mb-1 text-4xl">
@@ -46,7 +46,7 @@ function CommunityChat() {
             and moderation features are coming soon.
           </p>
         </div>
-      </div>
+      </div> */}
 
         {/* Chat Area */}
         <div className="flex flex-col flex-1 relative">
