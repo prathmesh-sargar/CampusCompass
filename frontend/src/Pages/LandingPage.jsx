@@ -1,16 +1,13 @@
-
 import HeroSection from '../components/Home/HeroSection'
-import PrepSimplifier from '../components/Home/PrepSimplifier'
+import CoreFeaturesSection from '../components/Home/CoreFeaturesSection'
 import Footer from '../components/Home/Footer'
-
-
 
 function LandingPage() {
     return (
-        <div className='  w-full overflow-x-hidden'>
+        <div className='w-full overflow-x-hidden'>
             <HeroSection />
-            <PrepSimplifier />
-            <Footer/>
+            <CoreFeaturesSection />
+            <Footer />
         </div>
     )
 }
