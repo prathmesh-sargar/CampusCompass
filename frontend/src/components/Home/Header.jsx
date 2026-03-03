@@ -63,7 +63,7 @@ const Header = () => {
             ["Guide", "/chat"],
             ["AI Interview", "/ainterview"],
             ["Community", "/community"],
-            ["Learn", "/ytcontent"],
+            // ["Learn", "/ytcontent"],
             ["Explore", "/activities"],
             ["Leaderboard", "/leaderboard"],
           ].map(([label, path]) => (
@@ -103,7 +103,7 @@ const Header = () => {
                 ["Guide", "/chat"],
                 ["AI Interview", "/ainterview"],
                 ["Community", "/community"],
-                ["Learn", "/ytcontent"],
+                // ["Learn", "/ytcontent"],
                 ["Explore", "/activities"],
               ].map(([label, path]) => (
                 <Link

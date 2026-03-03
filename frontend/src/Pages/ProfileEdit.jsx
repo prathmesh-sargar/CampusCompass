@@ -46,13 +46,21 @@ const ProfileEdit = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto mt-20 p-6 md:p-8 bg-gray-900 border border-gray-800 rounded-2xl shadow-xl">
-      <h2 className="text-3xl font-bold text-center text-gray-100 mb-8">
-        Edit Profile
-      </h2>
+  <div className="min-h-screen bg-gradient-to-br from-black via-gray-950 to-black py-16 px-4">
+    <div className="max-w-4xl mx-auto bg-gray-900/80 backdrop-blur-2xl border border-gray-800 rounded-3xl shadow-[0_20px_60px_-15px_rgba(139,92,246,0.35)] p-8 md:p-12">
+
+      {/* Heading */}
+      <div className="text-center mb-12">
+        <h2 className="text-4xl font-bold text-white tracking-tight">
+          Edit <span className="text-purple-400">Profile</span>
+        </h2>
+        <p className="text-gray-400 mt-2">
+          Manage your personal details & coding platforms
+        </p>
+      </div>
 
       {/* Name */}
-      <div className="mb-6">
+      <div className="mb-8">
         <label className="block text-sm font-medium text-gray-400 mb-2">
           Name
         </label>
@@ -60,12 +68,12 @@ const ProfileEdit = () => {
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="w-full bg-gray-950 border border-gray-700 rounded-xl px-4 py-3 text-gray-100 focus:ring-2 focus:ring-blue-500 outline-none"
+          className="w-full bg-gray-950/70 border border-gray-700 rounded-xl px-5 py-3 text-white focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all"
         />
       </div>
 
       {/* Email */}
-      <div className="mb-8">
+      <div className="mb-12">
         <label className="block text-sm font-medium text-gray-400 mb-2">
           Email
         </label>
@@ -73,57 +81,63 @@ const ProfileEdit = () => {
           type="email"
           value={email}
           disabled
-          className="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 text-gray-500 cursor-not-allowed"
+          className="w-full bg-gray-900 border border-gray-800 rounded-xl px-5 py-3 text-gray-500 cursor-not-allowed"
         />
       </div>
 
-      {/* Platforms */}
-      <h3 className="text-xl font-semibold text-gray-200 text-center mb-6">
-        Coding Platforms
-      </h3>
+      {/* Platforms Section */}
+      <div className="mb-8">
+        <h3 className="text-2xl font-semibold text-white text-center mb-8">
+          Coding Platforms
+        </h3>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        {Object.keys(platforms).map((platform) => (
-          <PlatformItem
-            key={platform}
-            label={platform.charAt(0).toUpperCase() + platform.slice(1)}
-            icon={getPlatformIcon(platform)}
-            value={platforms[platform]}
-            name={platform}
-            onChange={handleInputChange}
-          />
-        ))}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {Object.keys(platforms).map((platform) => (
+            <PlatformItem
+              key={platform}
+              label={platform.charAt(0).toUpperCase() + platform.slice(1)}
+              icon={getPlatformIcon(platform)}
+              value={platforms[platform]}
+              name={platform}
+              onChange={handleInputChange}
+            />
+          ))}
+        </div>
       </div>
 
       {/* Save Button */}
       <button
         onClick={handleSaveChanges}
         disabled={loading}
-        className={`w-full mt-10 py-3 rounded-xl font-semibold text-lg transition
+        className={`w-full mt-10 py-4 rounded-xl font-semibold text-lg transition-all duration-300 shadow-lg
           ${
             loading
-              ? "bg-blue-500/50 cursor-not-allowed"
-              : "bg-blue-600 hover:bg-blue-700"
-          } text-white shadow-lg`}
+              ? "bg-purple-500/40 cursor-not-allowed"
+              : "bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700"
+          } text-white`}
       >
         {loading ? "Saving..." : "Save Changes"}
       </button>
     </div>
-  );
+  </div>
+);
 };
 
 /* PLATFORM ITEM */
 const PlatformItem = ({ icon, label, value, name, onChange }) => (
-  <div className="flex items-center gap-4 bg-gray-950 border border-gray-800 rounded-xl p-4">
-    <div className="text-xl">{icon}</div>
-    <div className="w-28 text-gray-300 font-medium">{label}</div>
+  <div className="flex items-center gap-4 bg-gray-950/60 backdrop-blur-lg border border-gray-800 rounded-2xl p-5 transition-all hover:border-purple-600 hover:shadow-[0_10px_30px_-10px_rgba(139,92,246,0.4)]">
+    
+    <div className="text-2xl">{icon}</div>
+
+    <div className="w-32 text-gray-300 font-medium">{label}</div>
+
     <input
       type="text"
       name={name}
       value={value}
       onChange={onChange}
       placeholder="Username"
-      className="flex-1 bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-gray-100 focus:ring-2 focus:ring-blue-500 outline-none"
+      className="flex-1 bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all"
     />
   </div>
 );
