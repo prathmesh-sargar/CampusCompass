@@ -36,6 +36,10 @@ app.use(express.urlencoded({ extended: true }));
  * Liveness probe
  * - Checks if server process is running
  */
+app.get("/health", (req, res) => {
+  res.status(200).send("OK");
+});
+
 app.get("/health/live", (req, res) => {
   res.status(200).json({
     status: "UP",
@@ -62,6 +66,7 @@ app.get("/health/ready", (req, res) => {
     database: "CONNECTED",
   });
 });
+
 
 
 // Routes
