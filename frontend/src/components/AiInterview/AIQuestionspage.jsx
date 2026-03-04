@@ -293,7 +293,7 @@ const AIInterviewPage = () => {
 
     // Setup socket connection and auto-start monitoring
     useEffect(() => {
-        const socket = io("http://localhost:5000/", {
+        const socket = io(import.meta.env.VITE_API_FLASK_URL, {
             transports: ["websocket"],
             reconnectionAttempts: 5,
             reconnectionDelay: 1000
